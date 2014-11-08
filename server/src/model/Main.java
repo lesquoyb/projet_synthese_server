@@ -1,4 +1,4 @@
-package server;
+package model;
 
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -28,7 +28,7 @@ public class Main {
 		    /* à présent création d'un thread pour gérer les transactions avec le nouvau client en parallèle 
 		     * avec les autres clients déjà connectés et avec l'attente perpétuelle du servur*/
 		    
-		    ReceveurEnvoyeur nouveauClientThread = new ReceveurEnvoyeur(nouveauClientSocket, groupe, noConnexion); 
+		    Server nouveauClientThread = new Server(nouveauClientSocket, groupe, noConnexion); 
 		    nouveauClientThread.start();
 		}
 	} 

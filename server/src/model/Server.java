@@ -1,4 +1,4 @@
-package server;
+package model;
 import java.net.*;
 import java.io.*;
 
@@ -9,7 +9,7 @@ import java.io.*;
  * @author baptiste
  *
  */
-public class ReceveurEnvoyeur extends Thread{
+public class Server extends Thread{
 		
 	Socket socket;  
 	int noConnexion; // numéro du client distant
@@ -20,7 +20,7 @@ public class ReceveurEnvoyeur extends Thread{
 	* Suppose socket déjà connecté vers le client n° noConnexion
 	* @param noConnexion : n° du client
 	**/
-	public ReceveurEnvoyeur(Socket socket, ThreadGroup groupe, int noConnexion) throws IOException{
+	public Server(Socket socket, ThreadGroup groupe, int noConnexion) throws IOException{
 			
 		super(groupe,"ReceveurEnvoyeur");
 		this.socket = socket;
