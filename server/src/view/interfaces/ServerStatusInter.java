@@ -8,4 +8,5 @@ public interface ServerStatusInter {
 	public void setPort(String port);
 	
 	public void displayError(String mess);
+	
 }

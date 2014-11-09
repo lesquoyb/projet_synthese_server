@@ -12,7 +12,7 @@ public class MainWindow extends JFrame implements MainWindowInterface {
 	private ServerStatus serverStatus;
 	
 	public MainWindow(){
-		
+		super();
 		setLocationRelativeTo(null);
 		setTitle("Dessinator");
 		setSize(500, 500);
@@ -25,6 +25,9 @@ public class MainWindow extends JFrame implements MainWindowInterface {
 		setLayout(new BorderLayout());
 		add(drawingArea,BorderLayout.CENTER);
 		add(serverStatus,BorderLayout.NORTH);
-		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		while(true){
+			drawingArea.draw();
+		}
 	}
 }

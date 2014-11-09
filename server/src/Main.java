@@ -1,9 +1,5 @@
 
 
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-
 import model.Server;
 import view.MainWindow;
 
@@ -12,7 +8,8 @@ public class Main {
 	public static void main(String[] args)throws Exception{
 		
 		MainWindow m = new MainWindow();
-		
+		Server s = new Server();
+		/*
 		ServerSocket serveur = new ServerSocket(0); // place un serveur à l'écoute sur le port passé, si 0, alors choix parmi les ports libre
 	
 		System.out.println("serveur démarré: "+serveur);
@@ -31,11 +28,12 @@ public class Main {
 		    System.out.println("Connexion réussie n°: "+noConnexion);
 		    
 		    /* à présent création d'un thread pour gérer les transactions avec le nouvau client en parallèle 
-		     * avec les autres clients déjà connectés et avec l'attente perpétuelle du servur*/
+		     * avec les autres clients déjà connectés et avec l'attente perpétuelle du servur
 		    
-		    Server nouveauClientThread = new Server(nouveauClientSocket, groupe, noConnexion); 
+		    ServerThread nouveauClientThread = new ServerThread(nouveauClientSocket, groupe, noConnexion); 
 		    nouveauClientThread.start();
 		}
+		*/
 	} 
 
 

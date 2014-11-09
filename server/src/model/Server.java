@@ -1,59 +1,48 @@
 package model;
-import java.net.*;
-import java.io.*;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-/**
- * Serveur dont le but est d'afficher grâce à awt les formes géométriques transmisent par le client.
- * Il doit respecter le pattern chain of responsibility
- * @author baptiste
- *
- */
-public class Server extends Thread{
-		
-	Socket socket;  
-	int noConnexion; // numéro du client distant
-	BufferedReader fluxEntrant;	
-	PrintStream fluxSortant;
+public class Server {
+
+	private int noConnexion;
+	private ServerSocket serveur;
+	private ThreadGroup groupe;
 	
-	/**
-	* Suppose socket déjà connecté vers le client n° noConnexion
-	* @param noConnexion : n° du client
-	**/
-	public Server(Socket socket, ThreadGroup groupe, int noConnexion) throws IOException{
+	public Server(){
+		
+		try {
+			serveur = new ServerSocket(0); // place un serveur à l'écoute sur le port passé, si 0, alors choix parmi les ports libre
 			
-		super(groupe,"ReceveurEnvoyeur");
-		this.socket = socket;
-		this.noConnexion = noConnexion;
+			System.out.println("serveur démarré: "+serveur);
 		
-		fluxEntrant = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-		/* à présent fluxEntrant est prêt pour lire du texte provenant du client */
+			InetAddress cetteMachine = InetAddress.getLocalHost();
 		
-		fluxSortant = new PrintStream(this.socket.getOutputStream());
-		/* à présent fluxSortant est prêt pour renvoyer des réponses textuelles au client */
-	}
-	
-	public void run(){
+			System.out.println("adresse IP du serveur: "+cetteMachine.getHostAddress());
+			System.out.println("port du serveur : "+ serveur.getLocalPort());
+		
+			groupe = new ThreadGroup("socketsClients");
+			noConnexion = 0;
+			mainLoop();
 			
-		String ligne, réponse;
-		
-		try{
-			 while ( ! isInterrupted() ){
-				 
-			     ligne = fluxEntrant.readLine(); 
-			     if(ligne != null){
-				     System.out.println(" le client n° "+this.noConnexion+" a envoyé : ");
-				     System.out.println(ligne); 
-				     ligne = ligne.trim();
-				     réponse = ligne.toUpperCase();
-				     
-				     fluxSortant.print(réponse+'\n'); 
-				     sleep(5);
-			     }
-			}
+		} 
+		catch (Exception e) {
+			e.printStackTrace();
 		}
-		catch(InterruptedException erreur) { /* le thread s'arrête */}
-		catch(IOException erreur) { System.err.println(" on ne peut pas lire sur le socket provenant du client");}
-		 
 	}
-} 
+	
+	private void mainLoop() throws Exception {
+		while(true){
+		    
+			Socket nouveauClientSocket = serveur.accept(); // attente de connexion de la part d'un nouveau client
+		    ++noConnexion;
+		    System.out.println("Connexion réussie n°: "+noConnexion);
+		    ServerThread nouveauClientThread = new ServerThread(nouveauClientSocket, groupe, noConnexion); 
+		    nouveauClientThread.start();
+		}
+	}
+
+
+}

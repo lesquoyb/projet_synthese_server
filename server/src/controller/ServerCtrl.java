@@ -1,14 +1,14 @@
 package controller;
 
 import view.interfaces.ServerStatusInter;
-import model.Server;
+import model.ServerThread;
 
 public class ServerCtrl {
 
-	private Server server;
+	private ServerThread server;
 	private ServerStatusInter view;
 	
-	public ServerCtrl(Server s,ServerStatusInter v){
+	public ServerCtrl(ServerThread s,ServerStatusInter v){
 		server = s;
 		view = v;
 	}
