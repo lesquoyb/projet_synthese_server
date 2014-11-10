@@ -5,27 +5,35 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+import controller.ServerCtrl;
+
+
+/**
+ * Server représente un serveur web. À l'initialisation il choisi une adresse ip et un port et se met à écouter.
+ * Il est chargé de créer un thread pour chaque nouveau client se connectant.
+ * @author baptiste
+ *
+ */
+public class Server extends Thread {
 
 	private int noConnexion;
 	private ServerSocket serveur;
 	private ThreadGroup groupe;
+	private String port;
+	private String ip;
+	private ServerCtrl listenerNewThread;
+	private Socket nouveauClientSocket;
+
 	
 	public Server(){
 		
 		try {
-			serveur = new ServerSocket(0); // place un serveur � l'�coute sur le port pass�, si 0, alors choix parmi les ports libre
-			
-			System.out.println("serveur d�marr�: "+serveur);
-		
+			serveur = new ServerSocket(0);		
 			InetAddress cetteMachine = InetAddress.getLocalHost();
-		
-			System.out.println("adresse IP du serveur: "+cetteMachine.getHostAddress());
-			System.out.println("port du serveur : "+ serveur.getLocalPort());
-		
+			ip = cetteMachine.getHostAddress();
+			port = String.valueOf(serveur.getLocalPort());	
 			groupe = new ThreadGroup("socketsClients");
 			noConnexion = 0;
-			mainLoop();
 			
 		} 
 		catch (Exception e) {
@@ -33,16 +41,70 @@ public class Server {
 		}
 	}
 	
-	private void mainLoop() throws Exception {
-		while(true){
-		    
-			Socket nouveauClientSocket = serveur.accept(); // attente de connexion de la part d'un nouveau client
-		    ++noConnexion;
-		    System.out.println("Connexion r�ussie n�: "+noConnexion);
-		    ServerThread nouveauClientThread = new ServerThread(nouveauClientSocket, groupe, noConnexion); 
-		    nouveauClientThread.start();
+	/**
+	 * boucle infinie, à chaque nouvelle connexion de client on crée un {@link ServerThread}
+	 */
+	public void run(){
+		
+		try{
+			while(true){
+			    
+				nouveauClientSocket = serveur.accept(); // bloquant tant que pas de nouveau client
+			    noConnexion++;
+			    listenerNewThread.actionPerformed(null);
+			}
+		}
+		catch(Exception e){
+			e.printStackTrace();
 		}
 	}
 
+	
+	/**
+	 * Permet de passer le listener qui se déclenchera à la création de chaque nouveau thread.
+	 * @param controller
+	 */
+	public void setListenerNewThread(ServerCtrl controller){
+		listenerNewThread = controller;
+	}
+	
+	/**
+	 * 
+	 * @return le groupe de thread auquel appartient le serveur
+	 */
+	public ThreadGroup getGroup(){
+		return groupe;
+	}
+	
+	/**
+	 * 
+	 * @return le numéro de port qui est écouté
+	 */
+	public String getPort(){
+		return port;
+	}
+	/**
+	 * 
+	 * @return l'adresse ip du serveur
+	 */
+	public String getIp(){
+		return ip;
+	}
+	
+	/**
+	 * 
+	 * @return la socket correspondant au nouveau client venant de se connecter
+	 */
+	public Socket getNouveauClient(){
+		return nouveauClientSocket;
+	}
+	
+	/**
+	 * 
+	 * @return le nombre de client qui se sont connectés depuis le démarrage du serveur
+	 */
+	public String getNoConnexion(){
+		return String.valueOf(noConnexion);
+	}
 
 }

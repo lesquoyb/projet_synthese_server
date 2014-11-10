@@ -5,21 +5,25 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 
+import controller.DrawingCtrl;
+
 
 /**
- * Serveur dont le but est d'afficher grâce à awt les formes géométriques transmisent par le client.
+ * Serveur dont le but est d'afficher grï¿½ce ï¿½ awt les formes gï¿½omï¿½triques transmisent par le client.
  * Il doit respecter le pattern chain of responsibility
  * @author baptiste
  *
  */
 public class ServerThread extends Thread{
 		
-	Socket socket;  
-	int noConnexion; // numéro du client distant
-	BufferedReader fluxEntrant;	
-	PrintStream fluxSortant;
+	private int noConnexion; // numÃ©ro du client distant
+	private BufferedReader fluxEntrant;	
+	private PrintStream fluxSortant;
 	private String ip;
 	private String port;
+	private DrawingCtrl drawingListener;
+	private Socket socket;
+	
 	
 	public String getIp() {
 		return ip;
@@ -30,8 +34,8 @@ public class ServerThread extends Thread{
 	}
 
 	/**
-	* Suppose socket déjà connecté vers le client n° noConnexion
-	* @param noConnexion : n° du client
+	* Suppose socket dÃ©jÃ  connectÃ© vers le client nÂ° noConnexion
+	* @param noConnexion : nÂ° du client
 	**/
 	public ServerThread(Socket socket, ThreadGroup groupe, int noConnexion) throws IOException{
 			
@@ -40,33 +44,37 @@ public class ServerThread extends Thread{
 		this.noConnexion = noConnexion;
 		
 		fluxEntrant = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
-		/* à présent fluxEntrant est prêt pour lire du texte provenant du client */
 		
 		fluxSortant = new PrintStream(this.socket.getOutputStream());
-		/* à présent fluxSortant est prêt pour renvoyer des réponses textuelles au client */
 	}
 	
 	public void run(){
 			
-		String ligne, réponse;
+		String ligne, reponse;
 		
 		try{
 			 while ( ! isInterrupted() ){
 				 
 			     ligne = fluxEntrant.readLine(); 
 			     if(ligne != null){
-				     System.out.println(" le client n° "+this.noConnexion+" a envoyé : ");
+			    	 drawingListener.actionPerformed(null);
+				     System.out.println(" le client nÂ° "+this.noConnexion+" a envoyÃ© : ");
 				     System.out.println(ligne); 
 				     ligne = ligne.trim();
-				     réponse = ligne.toUpperCase();
+				     reponse = ligne.toUpperCase();
 				     
-				     fluxSortant.print(réponse+'\n'); 
+				     fluxSortant.print(reponse+'\n'); 
 				     sleep(5);
 			     }
 			}
 		}
-		catch(InterruptedException erreur) { /* le thread s'arrête */}
+		catch(InterruptedException erreur) { }
 		catch(IOException erreur) { System.err.println(" on ne peut pas lire sur le socket provenant du client");}
 		 
 	}
+	
+	public void setDrawingListener(DrawingCtrl cont){
+		drawingListener = cont;
+	}
+	
 } 
