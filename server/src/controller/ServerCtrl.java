@@ -31,13 +31,12 @@ public class ServerCtrl implements ActionListener {
 		    view.setNoConnexion(String.valueOf(noConnexion));
 		    DrawingArea draw = new DrawingArea(view,noConnexion);
 		    DrawingCtrl control = new DrawingCtrl(draw, nouveauClientThread);
-		    nouveauClientThread.start();
-
-		    
-		    
-		} catch (NumberFormatException e) {
+		    nouveauClientThread.start();    
+		} 
+		catch (NumberFormatException e) {
 			e.printStackTrace();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) {
 			e.printStackTrace();
 		} 
 	}

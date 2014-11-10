@@ -48,21 +48,28 @@ public class DrawingArea extends JDialog implements DrawingAreaInt {
 		}		
 	}
 
+
+	
 	@Override
-	public void drawLine(int x, int y) {
+	public void drawLine(String couleur, int x1, int y1, int x2, int y2) {
+		initGraphics();
+		//graphics.setColor(Color.decode(couleur));
+		graphics.drawLine(x1, y1, x2, y2);
+		//graphics.setColor(Color.white);
+		strategie.show();
+		
+	}
+
+	@Override
+	public void drawPolygon(String couleur, int[] x, int[] y) {
 		initGraphics();
 		
 	}
 
 	@Override
-	public void drawPolygon(int[] x, int[] y) {
+	public void drawEllipse(String couleur, int x, int y, int radius) {
 		initGraphics();
-		
-	}
-
-	@Override
-	public void drawEllipse(int x, int y, int radius) {
-		initGraphics();
+		graphics.setColor(Color.decode(couleur));
 		graphics.drawOval(x, y, radius, radius);
 		strategie.show();
 	}

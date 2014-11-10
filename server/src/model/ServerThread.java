@@ -21,7 +21,7 @@ public class ServerThread extends Thread{
 	private PrintStream fluxSortant;
 	private String ip;
 	private String port;
-	private DrawingCtrl drawingListener;
+	private DrawingCtrl drawingController;
 	private Socket socket;
 	
 	
@@ -50,18 +50,18 @@ public class ServerThread extends Thread{
 	
 	public void run(){
 			
-		String ligne, reponse;
+		String messageRecu, reponse;
 		
 		try{
 			 while ( ! isInterrupted() ){
 				 
-			     ligne = fluxEntrant.readLine(); 
-			     if(ligne != null){
-			    	 drawingListener.actionPerformed(null);
+			     messageRecu = fluxEntrant.readLine(); 
+			     if(messageRecu != null){
+			    	 drawingController.drawObject(messageRecu);
 				     System.out.println(" le client n° "+this.noConnexion+" a envoyé : ");
-				     System.out.println(ligne); 
-				     ligne = ligne.trim();
-				     reponse = ligne.toUpperCase();
+				     System.out.println(messageRecu); 
+				     messageRecu = messageRecu.trim();
+				     reponse = messageRecu.toUpperCase();
 				     
 				     fluxSortant.print(reponse+'\n'); 
 				     sleep(5);
@@ -74,7 +74,7 @@ public class ServerThread extends Thread{
 	}
 	
 	public void setDrawingListener(DrawingCtrl cont){
-		drawingListener = cont;
+		drawingController = cont;
 	}
 	
 } 

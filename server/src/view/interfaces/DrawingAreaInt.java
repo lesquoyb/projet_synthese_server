@@ -2,10 +2,10 @@ package view.interfaces;
 
 public interface DrawingAreaInt {
 	
-	public void drawLine(int x, int y);
+	public void drawLine(String couleur,int x1, int y1,int x2, int y2);
 	
-	public void drawPolygon(int[] x,int[] y);
+	public void drawPolygon(String couleur,int[] x,int[] y);
 	
-	public void drawEllipse(int x, int y, int radius);
+	public void drawEllipse(String couleur,int x, int y, int radius);
 
 }
