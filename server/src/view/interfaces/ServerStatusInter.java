@@ -1,6 +1,5 @@
 package view.interfaces;
 
-import view.MainWindow;
 
 public interface ServerStatusInter {
 

@@ -1,9 +1,8 @@
 
 
-import controller.ServerCtrl;
 import model.Server;
-import view.MainWindow;
 import view.ServerStatus;
+import controller.ServerCtrl;
 
 public class Main {
 

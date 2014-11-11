@@ -60,10 +60,8 @@ public class ServerThread extends Thread{
 			    	 drawingController.drawObject(messageRecu);
 				     System.out.println(" le client n° "+this.noConnexion+" a envoyé : ");
 				     System.out.println(messageRecu); 
-				     messageRecu = messageRecu.trim();
-				     reponse = messageRecu.toUpperCase();
 				     
-				     fluxSortant.print(reponse+'\n'); 
+				     fluxSortant.print(1+'\n'); 
 				     sleep(5);
 			     }
 			}
