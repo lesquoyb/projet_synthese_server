@@ -22,23 +22,24 @@ public class DrawingCtrl  {
 		formes = new ArrayList<String>();
 		view = d;
 		model = s;
+		view.setRepaintCtrl(this);
 		model.setDrawingListener(this);
 		parser = new ParserFacade();
 	}
 	
 	/**
-	 * Cette mÃ©thode est enclenchÃ©e quand une forme est envoyÃ© par le client
+	 * Cette méthode est enclenchée quand une forme est envoyée par le client
 	 */
 	public void drawObject(String toParse){
 		formes.add(toParse);
 		repaint();
 	}
 	
-	private void repaint(){
+	public void repaint(){
 		for(String toParse: formes){
 			parser.draw(toParse, view);
 		}
-		view.show();
+		view.showShapes();
 	}
 
 }

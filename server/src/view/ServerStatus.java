@@ -31,7 +31,7 @@ public class ServerStatus extends JFrame implements ServerStatusInter{
 		setLayout(new GridLayout(3, 3));
 		add(new JLabel("adresse ip du serveur: "));
 		add(ip);
-		add(new JLabel("numÃ©ro de port du serveur: "));
+		add(new JLabel("numéro de port du serveur: "));
 		add(port);
 		add(new JLabel("nombre de connexion sur le serveur: "));
 		add(noCon);
