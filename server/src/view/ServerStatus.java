@@ -18,10 +18,10 @@ public class ServerStatus extends JFrame implements ServerStatusInter{
 
 	public ServerStatus(){
 		super();
-		setLocationRelativeTo(null);
 		setTitle("Dessinator");
 		setSize(700, 200);
 		setResizable(true);
+		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
