@@ -28,7 +28,7 @@ public class DrawingCtrl  {
 	}
 	
 	/**
-	 * Cette méthode est enclenchée quand une forme est envoyée par le client
+	 * Cette mï¿½thode est enclenchï¿½e quand une forme est envoyï¿½e par le client
 	 */
 	public void drawObject(String toParse){
 		formes.add(toParse);

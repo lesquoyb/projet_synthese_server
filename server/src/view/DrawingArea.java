@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
-import java.awt.geom.Line2D.Float;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JDialog;
@@ -46,16 +45,17 @@ public class DrawingArea extends JDialog implements DrawingAreaInt {
 					graphics = strategie.getDrawGraphics();	
 					graphics.setColor(Color.white);
 					graphics.drawRect(0, 0, getWidth(), getHeight());	
-					drawAxis();
 				}
 			} 
 			catch (InterruptedException e) {
 				e.printStackTrace();
-			}	
+			}
+			drawAxis();
 		}
 
 	}
 
+//	@Override
 	private void drawAxis(){
 		Graphics2D g2d = (Graphics2D)graphics;
 		
@@ -114,6 +114,7 @@ public class DrawingArea extends JDialog implements DrawingAreaInt {
 		if(graphics == null) {
 			initGraphics();
 		}
+		
 		strategie.show();
 		//load the new screen
 		initGraphics();

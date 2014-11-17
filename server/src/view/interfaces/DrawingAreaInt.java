@@ -14,5 +14,7 @@ public interface DrawingAreaInt {
 	
 	public void setRepaintCtrl(DrawingCtrl ctrl);
 	
+	//public void drawAxis();
+	
 
 }
