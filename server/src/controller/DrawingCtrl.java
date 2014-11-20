@@ -28,13 +28,16 @@ public class DrawingCtrl  {
 	}
 	
 	/**
-	 * Cette m�thode est enclench�e quand une forme est envoy�e par le client
+	 * Cette méthode est enclenchée quand une forme est envoyée par le client
 	 */
 	public void drawObject(String toParse){
 		formes.add(toParse);
 		repaint();
 	}
 	
+	/**
+	 * Redessine la vue à l'aide de la liste de formes.
+	 */
 	public void repaint(){
 		for(String toParse: formes){
 			parser.draw(toParse, view);

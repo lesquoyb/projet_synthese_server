@@ -24,14 +24,14 @@ public class ServerStatus extends JFrame implements ServerStatusInter{
 		setLocationRelativeTo(null);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+
 		ip = new JLabel();
 		port = new JLabel();
 		noCon = new JLabel();
 		setLayout(new GridLayout(3, 3));
 		add(new JLabel("adresse ip du serveur: "));
 		add(ip);
-		add(new JLabel("numéro de port du serveur: "));
+		add(new JLabel("numï¿½ro de port du serveur: "));
 		add(port);
 		add(new JLabel("nombre de connexion sur le serveur: "));
 		add(noCon);

@@ -16,5 +16,6 @@ public interface DrawingAreaInt {
 	
 	//public void drawAxis();
 	
+	public void setCanvasSize(int width, int height);
 
 }

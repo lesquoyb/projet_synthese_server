@@ -1,17 +1,13 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.nio.channels.NoConnectionPendingException;
 
 import model.Server;
 import model.ServerThread;
 import view.DrawingArea;
-import view.interfaces.DrawingAreaInt;
 import view.interfaces.ServerStatusInter;
 
-public class ServerCtrl implements ActionListener {
+public class ServerCtrl {
 
 	
 
@@ -19,11 +15,9 @@ public class ServerCtrl implements ActionListener {
 	private ServerStatusInter view;
 	
 	/**
-	 * Quand l'action est déclenchée, on crée un nouveau ServerThread et son controlleur associé
+	 * Quand on a un nouveau client qui se connecte, on crée un nouveau ServerThread et son controlleur associé
 	 */
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		
+	public void nouveauClient(){
 	    ServerThread nouveauClientThread;
 		try {
 			int noConnexion = Integer.parseInt(server.getNoConnexion());
@@ -40,8 +34,6 @@ public class ServerCtrl implements ActionListener {
 			e.printStackTrace();
 		} 
 	}
-
-	
 	public ServerCtrl(Server s,ServerStatusInter v){
 		server = s;
 		view = v;

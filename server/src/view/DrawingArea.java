@@ -8,87 +8,79 @@ import java.awt.Graphics2D;
 import java.awt.geom.Line2D;
 import java.awt.image.BufferStrategy;
 
-import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JScrollBar;
 
 import view.interfaces.DrawingAreaInt;
 import view.interfaces.ServerStatusInter;
 import controller.DrawingCtrl;
 
-public class DrawingArea extends JDialog implements DrawingAreaInt {
+public class DrawingArea extends JFrame implements DrawingAreaInt {
 
-	private Canvas canvas;
+
 	private BufferStrategy strategie;
 	private Graphics graphics;
 	private DrawingCtrl repaintCtrl;
+	private JScrollBar scrollBar;
 
 	
 	public DrawingArea(ServerStatusInter parent,int noConnexion){
-		super((JFrame)parent);
-		setTitle("zone de dessin du client numéro: "+noConnexion);
+		super();
+		setAlwaysOnTop(false);
+		setTitle("Zone de dessin du client numéro: "+noConnexion);
 		setSize(1000,500);
 		setBackground(Color.white);
-		canvas = new Canvas();
-		canvas.setIgnoreRepaint(true);
+		setIgnoreRepaint(true);
 		setLayout(new BorderLayout());
-		add(canvas,BorderLayout.CENTER);
+		
+		setLocationRelativeTo(null);
 		setVisible(true);
+		createBufferStrategy(2); //nb de buffer
+		
+		try {				
+
+			Thread.sleep(300);
+			strategie = getBufferStrategy();
+			graphics = strategie.getDrawGraphics();	
+
+		}catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	private void initGraphics(){
-		if(graphics == null){
-			canvas.createBufferStrategy(1); //nb de buffer
-			try {
-				Thread.sleep(150);
-				strategie = canvas.getBufferStrategy();
-				if(strategie != null){
-					graphics = strategie.getDrawGraphics();	
-					graphics.setColor(Color.white);
-					graphics.drawRect(0, 0, getWidth(), getHeight());	
-				}
-			} 
-			catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			graphics = strategie.getDrawGraphics();	
 			drawAxis();
-		}
-
 	}
 
-//	@Override
+	
 	private void drawAxis(){
 		Graphics2D g2d = (Graphics2D)graphics;
-		
+
+		int larg = getWidth()/2;
+		int hauteur = getHeight()/2;
 		// change the center position and flip the y axis
-		g2d.translate( canvas.getWidth()/2, canvas.getHeight()/2);
+		g2d.translate( getWidth()/2, getHeight()/2);
 		g2d.scale(1f, -1f);
 		
-		int larg = canvas.getWidth()/2;
-		int hauteur = canvas.getHeight()/2;
 		//draw the background
 		g2d.setBackground(Color.white);
 		g2d.clearRect(-larg, hauteur, larg, -hauteur);
 
 		//draw the axis
 		g2d.setColor(Color.black);
-		Line2D xAxis = new Line2D.Float(-larg + 50f,0f,larg-50f,0f);
-		Line2D arrowA = new Line2D.Float(larg-50f,0f,larg-60f,-10f);
-		Line2D arrowB = new Line2D.Float(larg-50f,0f,larg-60f,10f);
-		g2d.draw(xAxis);
-		g2d.draw(arrowB);
-		g2d.draw(arrowA);
-		
-		Line2D yAxis = new Line2D.Float(0f,hauteur - 50f,0f,-hauteur +50f);
-		arrowA = new Line2D.Float(0f,hauteur -50f,-10f,hauteur -60f);
-		arrowB = new Line2D.Float(0f,hauteur -50f,10f,hauteur -60f);
-		g2d.draw(yAxis);
-		g2d.draw(arrowB);
-		g2d.draw(arrowA);
+		g2d.drawLine(-larg + 50,0,larg-50,0);
+		g2d.drawLine(larg-50,0,larg-60,-10);
+		g2d.drawLine(larg-50,0,larg-60,10);
+		g2d.drawLine(0,hauteur - 50,0,-hauteur +50);
+		g2d.drawLine(0,hauteur -50,-10,hauteur -60);
+		g2d.drawLine(0,hauteur -50,10,hauteur -60);
+
 	}
 	
 	@Override
 	public void drawLine(String couleur, int x1, int y1, int x2, int y2) {
-		initGraphics();
 		graphics.setColor(Color.decode(couleur));
 		graphics.drawLine(x1, y1, x2, y2);
 		
@@ -96,7 +88,6 @@ public class DrawingArea extends JDialog implements DrawingAreaInt {
 
 	@Override
 	public void drawPolygon(String couleur, int[] x, int[] y,int nbPoints) {
-		initGraphics();
 		graphics.setColor(Color.decode(couleur));
 		graphics.drawPolygon(x, y, nbPoints);
 		
@@ -104,7 +95,6 @@ public class DrawingArea extends JDialog implements DrawingAreaInt {
 
 	@Override
 	public void drawEllipse(String couleur, int x, int y, int radius) {
-		initGraphics();
 		graphics.setColor(Color.decode(couleur));
 		graphics.drawOval(x, y, radius, radius);
 	}
@@ -112,25 +102,35 @@ public class DrawingArea extends JDialog implements DrawingAreaInt {
 	@Override
 	public void showShapes(){
 		if(graphics == null) {
-			initGraphics();
+			initGraphics(); //first time
 		}
-		
 		strategie.show();
-		//load the new screen
+		graphics.dispose();
 		initGraphics();
 	}
 	
+
 	@Override
-	public void validate(){
+	public void validate() {
 		super.validate();
 		if(repaintCtrl != null){
 			repaintCtrl.repaint();		
 		}
 	}
-	
+
 	@Override
 	public void setRepaintCtrl(DrawingCtrl ctrl){
 		repaintCtrl = ctrl;
 	}
+
+	@Override
+	public void setCanvasSize(int width, int height) {
+	//	canvas.setSize(width,height);
+	}
+	
+	private void refreshExtent(){
+		//TODO
+	}
+	
 }
 

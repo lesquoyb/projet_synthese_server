@@ -28,7 +28,7 @@ public class Server extends Thread {
 	public Server(){
 		
 		try {
-			serveur = new ServerSocket(0);		
+			serveur = new ServerSocket(9111);//TODO change it to zero		
 			InetAddress cetteMachine = InetAddress.getLocalHost();
 			ip = cetteMachine.getHostAddress();
 			port = String.valueOf(serveur.getLocalPort());	
@@ -51,7 +51,7 @@ public class Server extends Thread {
 			    
 				nouveauClientSocket = serveur.accept(); // bloquant tant que pas de nouveau client
 			    noConnexion++;
-			    listenerNewThread.actionPerformed(null);
+			    listenerNewThread.nouveauClient();
 			}
 		}
 		catch(Exception e){
