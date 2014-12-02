@@ -8,6 +8,11 @@ import javax.swing.JOptionPane;
 
 import view.interfaces.ServerStatusInter;
 
+/**
+ * Affiche l'état du serveur, l'adresse ip, le port et le nombre de connexions.
+ * @author baptiste
+ *
+ */
 public class ServerStatus extends JFrame implements ServerStatusInter{
 
 	private JLabel ip;

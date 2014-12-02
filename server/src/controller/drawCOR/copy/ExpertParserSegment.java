@@ -21,10 +21,10 @@ public class ExpertParserSegment extends ExpertParser{
 			String content[] = toParse.substring(type.length()).split(",");
 			if(content.length == 5){
 				String couleur = content[0].trim();
-				int x1 =  Integer.parseInt(content[1].trim());
-				int y1 =  Integer.parseInt(content[2].trim());
-				int x2 =  Integer.parseInt(content[3].trim());
-				int y2 =  Integer.parseInt(content[4].trim());
+				int x1 =  (int) Double.parseDouble(content[1].trim());
+				int y1 =  (int) Double.parseDouble(content[2].trim());
+				int x2 =  (int) Double.parseDouble(content[3].trim());
+				int y2 =  (int) Double.parseDouble(content[4].trim());
 				toDraw.drawLine(couleur, x1, y1, x2, y2);
 				return true;
 			}

@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import view.interfaces.DrawingAreaInt;
 
+/**
+ * L'expert parser de polygone.
+ * @author baptiste
+ *
+ */
 public class ExpertParserPolygone extends ExpertParser {
 
 	@Override

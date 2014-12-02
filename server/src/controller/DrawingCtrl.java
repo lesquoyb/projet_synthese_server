@@ -1,13 +1,18 @@
 package controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import model.DedicatedThread;
-import model.drawCOR.ParserFacade;
+import view.DrawingArea;
 import view.interfaces.DrawingAreaInt;
+import controller.drawCOR.copy.ParserFacade;
 
+/**
+ * 
+ * @author baptiste
+ * Controller de la vue {@link DrawingArea}, s'occupe de receptionner les formes envoyées à {@link DedicatedServer}, 
+ * et de les dessiner sur la vue à l'aide de la Chain Of Responsibility {@link ParserFacade}.
+ */
 public class DrawingCtrl  {
 	
 

@@ -3,6 +3,11 @@ package controller.drawCOR.copy;
 import view.DrawingArea;
 import view.interfaces.DrawingAreaInt;
 
+/**
+ * La classe abstraite définissant le comportement d'un expert quelconque.
+ * @author baptiste
+ *
+ */
 public abstract class Expert {
 	
 	/**

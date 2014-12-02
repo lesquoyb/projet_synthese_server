@@ -68,7 +68,7 @@ public class DedicatedThread extends Thread{
 			}
 		}
 		catch(InterruptedException erreur) { }
-		catch(IOException erreur) { System.err.println(" on ne peut pas lire sur le socket provenant du client");}
+		catch(IOException erreur) { System.err.println(" on ne peut pas lire sur le socket provenant du client");		}
 		 
 	}
 	

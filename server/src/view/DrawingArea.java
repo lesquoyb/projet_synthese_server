@@ -18,7 +18,7 @@ import controller.DrawingCtrl;
 /**
  * 
  * @author baptiste
- *Controller de {@link DrawingArea}, il contient la liste des formes et se charge de les afficher.
+ * La zone de dessin, elle implémente les méthodes de {@link DrawingAreaInt} pour qu'on puisse dessiner dessus depuis l'exterieur.
  */
 public class DrawingArea extends JFrame implements DrawingAreaInt {
 
@@ -39,7 +39,7 @@ public class DrawingArea extends JFrame implements DrawingAreaInt {
 		
 		setLocationRelativeTo(null);
 		setVisible(true);
-		createBufferStrategy(1); //nb de buffer
+		createBufferStrategy(2); //nb de buffer
 		
 		try {				
 
@@ -53,14 +53,17 @@ public class DrawingArea extends JFrame implements DrawingAreaInt {
 		initGraphics();
 	}
 	
+	/**
+	 * Charge le buffer suivant et lance la construction des axes.
+	 */
 	private void initGraphics(){
-		do{
 			graphics = strategie.getDrawGraphics();	
-		}while(strategie.contentsLost());
 			drawAxis();
 	}
 
-	
+	/**
+	 * Construit les axes du plan.
+	 */
 	private void drawAxis(){
 		Graphics2D g2d = (Graphics2D)graphics;
 
@@ -109,12 +112,6 @@ public class DrawingArea extends JFrame implements DrawingAreaInt {
 		graphics.dispose();
 		strategie.show();
 		initGraphics();
-	}
-	
-
-	@Override
-	public void validate() {
-		super.validate();
 	}
 	
 	

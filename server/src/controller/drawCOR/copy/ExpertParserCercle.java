@@ -2,6 +2,12 @@ package controller.drawCOR.copy;
 
 import view.interfaces.DrawingAreaInt;
 
+
+/**
+ * L'expert parser de cercle.
+ * @author baptiste
+ *
+ */
 public class ExpertParserCercle extends ExpertParser {
 
 	@Override

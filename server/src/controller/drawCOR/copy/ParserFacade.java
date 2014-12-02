@@ -21,6 +21,12 @@ public class ParserFacade {
 		
 	}
 	
+	/**
+	 * La méthode à appeler pour lancer la façade.
+	 * @param toParse
+	 * @param toDraw
+	 * @return
+	 */
 	public boolean draw(String toParse, DrawingAreaInt toDraw){
 		return first.draw(toParse, toDraw);
 	}

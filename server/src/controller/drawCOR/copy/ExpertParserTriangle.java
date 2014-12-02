@@ -2,6 +2,11 @@ package controller.drawCOR.copy;
 
 import view.interfaces.DrawingAreaInt;
 
+/**
+ * L'expert parser de triangle.
+ * @author baptiste
+ *
+ */
 public class ExpertParserTriangle extends ExpertParser {
 
 	@Override

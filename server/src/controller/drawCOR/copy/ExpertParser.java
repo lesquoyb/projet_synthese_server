@@ -2,6 +2,12 @@ package controller.drawCOR.copy;
 
 import view.interfaces.DrawingAreaInt;
 
+/**
+ * Classe abstraite définissant le comportement d'un expert parser (c'est à dire qui analyse du texte).
+ * Defini l'objet {@link ExpertParser} suivant, pour le DP COR.
+ * @author baptiste
+ *
+ */
 public abstract class ExpertParser extends Expert {
 
 	private ExpertParser suivant;
