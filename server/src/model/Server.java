@@ -5,11 +5,14 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+
 import controller.ServerCtrl;
 
 
 /**
- * Server représente un serveur web. À l'initialisation il choisi une adresse ip et un port et se met à écouter.
+ * Server représente un serveur web. À l'initialisation il cherche son adresse ip et choisi un port et se met à écouter.
  * Il est chargé de créer un thread pour chaque nouveau client se connectant.
  * @author baptiste
  *
@@ -25,24 +28,18 @@ public class Server extends Thread {
 	private Socket nouveauClientSocket;
 
 	
-	public Server(){
-		
-		try {
-			serveur = new ServerSocket(9111);//TODO change it to zero		
-			InetAddress cetteMachine = InetAddress.getLocalHost();
-			ip = cetteMachine.getHostAddress();
-			port = String.valueOf(serveur.getLocalPort());	
-			groupe = new ThreadGroup("socketsClients");
-			noConnexion = 0;
-			
-		} 
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+	public Server() throws IOException{
+
+				serveur = new ServerSocket(9111);//TODO change it to zero		
+				InetAddress cetteMachine = InetAddress.getLocalHost();
+				ip = cetteMachine.getHostAddress();
+				port = String.valueOf(serveur.getLocalPort());	
+				groupe = new ThreadGroup("socketsClients");
+				noConnexion = 0;
 	}
 	
 	/**
-	 * boucle infinie, à chaque nouvelle connexion de client on crée un {@link ServerThread}
+	 * boucle infinie, à chaque nouvelle connexion de client on crée un {@link DedicatedThread}
 	 */
 	public void run(){
 		

@@ -9,12 +9,13 @@ import controller.DrawingCtrl;
 
 
 /**
- * Serveur dont le but est d'afficher gr�ce � awt les formes g�om�triques transmisent par le client.
+ * Thread dont le but est d'afficher gr�ce � awt les formes g�om�triques transmisent par le client.
+ * Il doit y en avoir un par client.
  * Il doit respecter le pattern chain of responsibility
  * @author baptiste
  *
  */
-public class ServerThread extends Thread{
+public class DedicatedThread extends Thread{
 		
 	private int noConnexion; // numéro du client distant
 	private BufferedReader fluxEntrant;	
@@ -37,7 +38,7 @@ public class ServerThread extends Thread{
 	* Suppose socket déjà connecté vers le client n° noConnexion
 	* @param noConnexion : n° du client
 	**/
-	public ServerThread(Socket socket, ThreadGroup groupe, int noConnexion) throws IOException{
+	public DedicatedThread(Socket socket, ThreadGroup groupe, int noConnexion) throws IOException{
 			
 		super(groupe,"ReceveurEnvoyeur");
 		this.socket = socket;

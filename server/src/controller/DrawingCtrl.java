@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import model.ServerThread;
+import model.DedicatedThread;
 import model.drawCOR.ParserFacade;
 import view.interfaces.DrawingAreaInt;
 
@@ -13,11 +13,11 @@ public class DrawingCtrl  {
 
 
 	private DrawingAreaInt view;
-	private ServerThread model;
+	private DedicatedThread model;
 	private ParserFacade parser;
 	private ArrayList<String> formes;
 	
-	public DrawingCtrl(DrawingAreaInt d, ServerThread s){
+	public DrawingCtrl(DrawingAreaInt d, DedicatedThread s){
 		
 		formes = new ArrayList<String>();
 		view = d;

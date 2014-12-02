@@ -3,10 +3,17 @@ package controller;
 import java.io.IOException;
 
 import model.Server;
-import model.ServerThread;
+import model.DedicatedThread;
 import view.DrawingArea;
 import view.interfaces.ServerStatusInter;
 
+
+/**
+ * Controlleur gérant la connexion d'un nouveau client. 
+ * A chaque nouveau client, une zone de dessin est créée ainsi qu'un {@link DedicatedThread} et un {@link DrawingCtrl} associé.
+ * @author baptiste
+ *
+ */
 public class ServerCtrl {
 
 	
@@ -18,10 +25,10 @@ public class ServerCtrl {
 	 * Quand on a un nouveau client qui se connecte, on crée un nouveau ServerThread et son controlleur associé
 	 */
 	public void nouveauClient(){
-	    ServerThread nouveauClientThread;
+	    DedicatedThread nouveauClientThread;
 		try {
 			int noConnexion = Integer.parseInt(server.getNoConnexion());
-			nouveauClientThread = new ServerThread(server.getNouveauClient(), server.getGroup(), noConnexion );
+			nouveauClientThread = new DedicatedThread(server.getNouveauClient(), server.getGroup(), noConnexion );
 		    view.setNoConnexion(String.valueOf(noConnexion));
 		    DrawingArea draw = new DrawingArea(view,noConnexion);
 		    DrawingCtrl control = new DrawingCtrl(draw, nouveauClientThread);

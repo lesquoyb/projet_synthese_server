@@ -15,13 +15,17 @@ import view.interfaces.DrawingAreaInt;
 import view.interfaces.ServerStatusInter;
 import controller.DrawingCtrl;
 
+/**
+ * 
+ * @author baptiste
+ *Controller de {@link DrawingArea}, il contient la liste des formes et se charge de les afficher.
+ */
 public class DrawingArea extends JFrame implements DrawingAreaInt {
 
 
 	private BufferStrategy strategie;
 	private Graphics graphics;
 	private DrawingCtrl repaintCtrl;
-	private JScrollBar scrollBar;
 
 	
 	public DrawingArea(ServerStatusInter parent,int noConnexion){
@@ -41,16 +45,18 @@ public class DrawingArea extends JFrame implements DrawingAreaInt {
 
 			Thread.sleep(300);
 			strategie = getBufferStrategy();
-			graphics = strategie.getDrawGraphics();	
 
 		}catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		
+		initGraphics();
 	}
 	
 	private void initGraphics(){
+		do{
 			graphics = strategie.getDrawGraphics();	
+		}while(strategie.contentsLost());
 			drawAxis();
 	}
 
@@ -90,22 +96,18 @@ public class DrawingArea extends JFrame implements DrawingAreaInt {
 	public void drawPolygon(String couleur, int[] x, int[] y,int nbPoints) {
 		graphics.setColor(Color.decode(couleur));
 		graphics.drawPolygon(x, y, nbPoints);
-		
 	}
 
 	@Override
 	public void drawEllipse(String couleur, int x, int y, int radius) {
 		graphics.setColor(Color.decode(couleur));
-		graphics.drawOval(x, y, radius, radius);
+		graphics.drawOval(x - (radius/2), y - (radius/2), radius, radius); // on décale car les données envoyées sontcelles du centre du cercle alors que drawOval prend le point en haut à gauche
 	}
 	
 	@Override
 	public void showShapes(){
-		if(graphics == null) {
-			initGraphics(); //first time
-		}
-		strategie.show();
 		graphics.dispose();
+		strategie.show();
 		initGraphics();
 	}
 	
@@ -123,14 +125,6 @@ public class DrawingArea extends JFrame implements DrawingAreaInt {
 		repaintCtrl = ctrl;
 	}
 
-	@Override
-	public void setCanvasSize(int width, int height) {
-	//	canvas.setSize(width,height);
-	}
-	
-	private void refreshExtent(){
-		//TODO
-	}
-	
+
 }
 

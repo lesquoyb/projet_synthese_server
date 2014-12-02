@@ -1,4 +1,4 @@
-package model.drawCOR;
+package controller.drawCOR.copy;
 
 import java.util.ArrayList;
 
@@ -18,8 +18,8 @@ public class ExpertParserPolygone extends ExpertParser {
 				
 				for (int i = 1 ; i < content.length ; i+=2){
 					int index = i/2;
-					x[index] = Integer.parseInt(content[i].trim());
-					y[index] = Integer.parseInt(content[i+1].trim());
+					x[index] = (int) Double.parseDouble(content[i].trim());
+					y[index] = (int) Double.parseDouble(content[i+1].trim());
 				}
 				toDraw.drawPolygon(couleur, x, y, content.length/2 );
 				return true;
