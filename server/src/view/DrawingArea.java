@@ -39,7 +39,7 @@ public class DrawingArea extends JFrame implements DrawingAreaInt {
 		
 		setLocationRelativeTo(null);
 		setVisible(true);
-		createBufferStrategy(2); //nb de buffer
+		createBufferStrategy(1); //nb de buffer
 		
 		try {				
 
@@ -67,7 +67,7 @@ public class DrawingArea extends JFrame implements DrawingAreaInt {
 		int larg = getWidth()/2;
 		int hauteur = getHeight()/2;
 		// change the center position and flip the y axis
-		g2d.translate( getWidth()/2, getHeight()/2);
+		g2d.translate(larg,  hauteur);
 		g2d.scale(1f, -1f);
 		
 		//draw the background
@@ -115,14 +115,24 @@ public class DrawingArea extends JFrame implements DrawingAreaInt {
 	@Override
 	public void validate() {
 		super.validate();
-		if(repaintCtrl != null){
-			repaintCtrl.repaint();		
-		}
 	}
+	
+	
+	
+	
 
 	@Override
 	public void setRepaintCtrl(DrawingCtrl ctrl){
 		repaintCtrl = ctrl;
+	}
+
+	@Override
+	public void update(Graphics g) {
+		// TODO Auto-generated method stub
+		super.update(g);
+		if(repaintCtrl != null){
+			repaintCtrl.repaint();		
+		}
 	}
 
 
