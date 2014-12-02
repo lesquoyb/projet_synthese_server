@@ -1,4 +1,4 @@
 projet_synthese_server
 ======================
 
-the server side of the drawing application.
+Partie serveur de du projet de synthèse de L3 informatique.
